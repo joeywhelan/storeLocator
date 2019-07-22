@@ -1,0 +1,29 @@
+#Configuration file for GCP App Engine
+runtime: nodejs
+env: flex
+manual_scaling:
+  instances: 1
+resources:
+  cpu: 1
+  memory_gb: 0.5
+  disk_size_gb: 10
+env_variables:
+  REDISHOST: '10.0.0.3'
+  REDISPORT: '6379'
+  MAPSURL: 'https://www.google.com/maps/dir/?api=1'
+  APIKEY: 'your key'
+
+endpoints_api_service:
+  # The following values are to be replaced by information from the output of
+  # 'gcloud endpoints services deploy openapi-appengine.yaml' command.
+  name: yourapp.appspot.com
+  rollout_strategy: managed
+
+network:
+  name: default
+
+handlers:
+- url: /.*
+  secure: always
+  redirect_http_response_code: 301
+  script: auto
